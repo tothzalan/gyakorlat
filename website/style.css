@@ -6,3 +6,7 @@ main, body {
 h1 {
     text-align: center;
 }
+#container {
+    width: 80vw;
+    margin: 0 auto;
+}
