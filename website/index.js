@@ -6,6 +6,15 @@ let dummyData = { 'companies': [
 
 const container = document.getElementById('container')
 const select = document.getElementById('select')
+const nameInput = document.getElementById('name')
+nameInput.addEventListener('input', e => { inputChange() })
+
+function inputChange() {
+    const filtered = {}
+    filtered.companies = dummyData.companies.filter(comp =>
+        comp.name.includes(nameInput.value))
+    showData(filtered)
+}
 
 function generateOptions(data) {
     let tech = []
