@@ -5,7 +5,22 @@ let dummyData = { 'companies': [
 ]}
 
 const container = document.getElementById('container')
+const select = document.getElementById('select')
 
+function generateOptions(data) {
+    let tech = []
+    data.companies.map(comp => {
+        tech.push(...comp.technologies)
+    })
+    tech = [...new Set(tech)]
+    tech.map(t => {
+        const o = document.createElement('option')
+        o.value = t
+        o.text = t
+        select.appendChild(o)
+    })
+}
+generateOptions(dummyData)
 
 function showData(data) {
     container.innerHTML = ''
