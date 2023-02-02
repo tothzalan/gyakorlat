@@ -60,6 +60,8 @@ function search() {
         const filtered = {}
         filtered.companies = dummyData.companies.filter(comp =>
             comp.technologies.includes(selectedTech))
+        filtered.companies = filtered.companies.filter(comp =>
+            comp.name.includes(nameInput.value))
         showData(filtered)
     } else {
         showData(dummyData)
