@@ -18,7 +18,7 @@ class Company:
         self.technologies = []
         soup = BeautifulSoup(web_request(self.url), features="html.parser")
         text_body = str(soup.find("div", {"class": "subpage-description"}))
-        search = technologies_pattern.findall(text_body.lower())
+        search = [x[-1] for x in technologies_pattern.findall(text_body.lower())]
         if search:
             self.technologies = list(set(search))
     def __str__(self):
@@ -28,8 +28,9 @@ technologies = [ "python", "django", "php", "laravel",
                  "c\#", "\.net", "asp.net", "c\+\+", "html", "css",
                  "javascript", "typescript", "java", "sql",
                  "angular", "react", "golang", "scala", "unity",
-                 "docker", "lua"]
-technologies_pattern = re.compile(f" ({'|'.join(technologies)})", flags=re.I)
+                 "docker", "lua" ]
+technologies_pattern = re.compile(f"( |>)({'|'.join(technologies)})", flags=re.I)
+
 def parse_link(raw: str) -> Company:
     name = re.search("\">.*\<\/a", raw).group(0)[2:-3]
     link = re.search("\".*\"", raw).group(0)[1:-1]
