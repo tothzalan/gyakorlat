@@ -40,8 +40,9 @@ if __name__ == "__main__":
     BASE_URL = "https://www.inf.elte.hu/bsc-kepzes/szakmai-gyakorlati-helyek"
 
     soup = BeautifulSoup(web_request(BASE_URL), features="html.parser")
-    container_ul = soup.find_all("ul")[-1]
+    container_ul = soup.find_all("ul")[-2]
     links = list(container_ul.findChildren("a", recursive=True))
     companies = [parse_link(str(l)) for l in links][:3]
     [c.gather_tech() for c in companies]
     [print(c) for c in companies]
+
