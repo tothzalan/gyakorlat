@@ -2,6 +2,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 import json
+from typing import Optional
 
 def web_request(url: str) -> str:
     response = requests.get(url)
@@ -36,7 +37,7 @@ def parse_link(raw: str) -> Company:
     link = re.search("\".*\"", raw).group(0)[1:-1]
     return Company(name, link)
 
-def get_data(limit: int = 10) -> str:
+def get_data(limit: Optional[int] = None) -> str:
     BASE_URL = "https://www.inf.elte.hu/bsc-kepzes/szakmai-gyakorlati-helyek"
 
     soup = BeautifulSoup(web_request(BASE_URL), features="html.parser")

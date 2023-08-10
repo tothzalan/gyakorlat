@@ -1,2 +1,4 @@
 venv/
 .fleet/
+*.db
+*.sqlite3
