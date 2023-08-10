@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import json
 
-from database import should_update, update, get_all
+from database import should_update, update, get_all, get_by_comp_name
 
 app = FastAPI()
 
@@ -36,6 +36,10 @@ async def get_all_companies():
         return json.loads(get_all())
     return get_all()
 
-#@app.get(f'/companies/{company_name}')
-#async def get_company(company_name: str):
-    
+@app.get('/companies/{company_name}', response_model=Company)
+async def get_company(company_name: str):
+    if should_update():
+        update()
+        return get_by_comp_name(company_name)
+    print(get_by_comp_name(company_name))
+    return get_by_comp_name(company_name)

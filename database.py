@@ -40,5 +40,11 @@ def get_all():
 
     return [{ 'name': c[0], 'url': c[1], 'technologies': csv_to_array(c[2]) } for c in raw_arrays]
 
+def get_by_comp_name(name: str):
+    res = cur.execute(f'SELECT * FROM company WHERE name = \'{name}\'')
+    comp = res.fetchone()
+    return { 'name': comp[0], 'url': comp[1], 'technologies': csv_to_array(comp[2]) }
+
+
 create_tables()
 #update()
