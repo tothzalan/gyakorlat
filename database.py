@@ -41,6 +41,4 @@ def get_all():
     return [{ 'name': c[0], 'url': c[1], 'technologies': csv_to_array(c[2]) } for c in raw_arrays]
 
 create_tables()
-print(should_update())
 #update()
-print(get_all())
