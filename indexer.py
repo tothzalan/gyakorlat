@@ -36,13 +36,15 @@ def parse_link(raw: str) -> Company:
     link = re.search("\".*\"", raw).group(0)[1:-1]
     return Company(name, link)
 
-if __name__ == "__main__":
+def get_data(limit: int = 10) -> str:
     BASE_URL = "https://www.inf.elte.hu/bsc-kepzes/szakmai-gyakorlati-helyek"
 
     soup = BeautifulSoup(web_request(BASE_URL), features="html.parser")
     container_ul = soup.find_all("ul")[-2]
     links = list(container_ul.findChildren("a", recursive=True))
-    companies = [parse_link(str(l)) for l in links][:10]
+    companies = [parse_link(str(l)) for l in links][:limit]
     [c.gather_tech() for c in companies]
-    print(json.dumps([c.__dict__ for c in companies]))
+    return json.dumps([c.__dict__ for c in companies])
 
+if __name__ == "__main__":
+    print(get_data())
